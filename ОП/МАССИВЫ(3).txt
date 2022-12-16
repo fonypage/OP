@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    int n, flag_1 = 1, sum = 0;
+    cout << "Введите кол-во элементов массива : ";
+    cin >> n;
+    int* a = new int[n];
+    for (int i = 0; i < n; i++) // Ввод массива
+        cin >> a[i];
+    for (int i = 0; i < n - 1; i++)
+    {
+        if (a[i] * a[i + 1] > 0) // Проверка на знакочередующиеся
+        {
+            flag_1 = 0;
+            break;
+        }
+    }
+    for (int i = 0; i < n; i++)
+    {
+        int flag_2 = 1;
+        for (int j = 2; j < abs(a[i]); j++) // Проверка числа ялвется ли оно простым
+        {
+            if (a[i] % j == 0)
+            {
+                flag_2 = 0;
+            }
+        }
+        if (flag_2 == 1)
+        {
+            sum += a[i];
+        }
+    }
+    cout << "Сумма простых элементов = " << sum;
+    delete []a;
+}
+/*
+  ПРИМЕР
+  ЗАДАЁМ КОЛ-ВО ЭЛЕМЕНТОВ МАССИВА = 5
+  1 2 3 4 5
+  ОТВЕТ БУДЕТ 11
+ */

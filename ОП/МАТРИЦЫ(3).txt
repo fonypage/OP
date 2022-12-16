@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    int n, m, max, sh, pr = 1;
+    cout << "Введите размерность матрицы : ";
+    cin >> n;
+    cin >> m;
+    int** a = new int* [n];//Задание двумерного,динамического массива
+    for (int i = 0; i < n; i++)
+    {
+        a[i] = new int[m];
+        for (int j = 0; j < m; j++)
+            cin >> a[i][j];
+    }
+    max = a[0][0];
+    for (int i = 0; i < n; i++)// Нахождение max элемента в матрице и сохранение его строки
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (a[i][j] > max)
+            {
+                max = a[i][j];
+                sh = i;
+            }
+        }
+    }
+    for (int j = 0; j < m; j++)// Произведение элементов подходящей строки
+    {
+        if (a[sh][j] != 0)
+            pr *= a[sh][j];
+    }
+    cout << "Произведение строки с максимальным элементов = " << pr;
+    for (int i = 0; i < n; i++)
+    {
+        delete[]a[i];
+    }
+    delete[]a;
+}
+/*ПРИМЕР
+  МАТРИЦА 3х3
+  1 2 3
+  7 8 9
+  4 5 6
+  Ответ будет 504,тк max = 9 и произведение второй строки равно 504*/

@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    int n, x;
+    cout << "Введите кол-во слагаемых и число a : ";
+    cin >> n >> x;
+    double a = -1; // создаём переменыне для a,b,c и задаём для s сумму при i = 1 (a = (-1)^i    b = (x)^(i+1)    c = i!)
+    double b = x * x;
+    double c = 1;
+    double s = (a * b) / c;
+    for (int i = 2; i <= n; i++) // цикл перебора i
+    {
+        a = a * (-1);
+        b = b * x;
+        c = c * i;
+        s += (a * b) / c;
+    }
+    cout << "сумма = " << s;
+}
+/*
+ПРИМЕР
+ВВОДИМ КОЛ-ВО СЛАГАЕМЫХ И ЧИСЛО А
+5 3
+ОТВЕТ -4.95
+*/

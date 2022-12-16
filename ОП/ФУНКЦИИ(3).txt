@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+int pro100(int a) // Поиск суммы делителей элемента
+{
+    int sum = 0;
+    for (int c = 1; c <= a; c++)
+    {
+        if (a % c == 0)
+        {
+            sum += c;
+        }
+    }
+    return sum;
+}
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    int ch_x = 0, ch_y = 0, n, m, x, y;
+    cout << "Введите размерность массива: ";
+    cin >> n;
+    cin >> m;
+    cout << "Введите значение X и Y: ";
+    cin >> x;
+    cin >> y;
+    int** a = new int* [n]; // Задание двумерного массива
+    for (int i = 0; i < n; i++)
+    {
+        a[i] = new int[m];
+        for (int j = 0; j < m; j++)
+            cin >> a[i][j];
+    }
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (x == pro100(a[i][j])) // Проверка на равенство Х и суммы делителей
+            {
+                ch_x++;
+            }
+            if (y == pro100(a[i][j])) // Проверка на равенство Y и суммы делителей
+            {
+                ch_y++;
+            }
+        }
+    }
+    if (ch_x > ch_y) 
+        cout << "Х больше";
+    else
+        cout << "Y больше";
+    for (int i = 0; i < n; i++)
+        delete[]a[i];
+    delete[]a;
+
+}
+/*
+ПРИМЕР
+ЗАДАЁМ МАТРИЦУ 3 на 3 И Х = 4,Y=7
+3 3 3
+4 4 4
+3 3 3
+ОТВЕТ Х БОЛЬШЕ
+*/
