@@ -1,0 +1,84 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+	int a = 1, b = 1, c = 1, x, n;
+	float s = 0;
+	cin >> x;
+	cin >> n;
+	for (int i = 1; i <= n; i++)
+	{
+		a = a * (-1);
+		b = b * pow(3 * x + 2, 3);
+		c = c * (i + 1);
+		s += a * b / c;
+	}
+	cout << s;
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+using namespace std;
+void zamena(int* a, int const n, int max1)
+{
+	cout << endl;
+	for (int i = 0; i < n; i++)
+	{
+		if (a[i] < 0)
+			a[i] = max1;
+		cout << a[i] << " ";
+	}
+}
+int max(int* a, int const n)
+{
+	int max1 = a[0];
+	for (int i = 1; i < n; i++)
+		if (a[i] > max1)
+			max1 = a[i];
+	return max1;
+}
+int proverka(int* a, int const n)
+{
+	int flag1 = 0, flag2 = 0, c;
+	for (int i = 0; i < n; i++)
+	{
+		c = 0;
+		if (a[i] % 11 == 0)
+			flag1++;
+		for (int j = 1; j <= abs(a[i]); j++)
+			if (a[i] % j == 0)
+				c++;
+		if (c == 2)
+			flag2++;
+	}
+	cout << flag1 << " " << flag2;
+	if (flag1 == flag2)
+		return 1;
+	return 0;
+}
+int main()
+{
+	setlocale(LC_ALL, "RUS");
+	int n, max1;
+	cin >> n;
+	int* a = new int[n];
+	for (int i = 0; i < n; i++)
+		cin >> a[i];
+	if (proverka(a, n) == 1)
+	{
+		max1 = max(a, n);
+		zamena(a, n, max1);
+	}
+	else cout << "кол-во эл-ов % 11 == 0 != кол-ву простых";
+	delete[]a;
+	return 0;
+}
