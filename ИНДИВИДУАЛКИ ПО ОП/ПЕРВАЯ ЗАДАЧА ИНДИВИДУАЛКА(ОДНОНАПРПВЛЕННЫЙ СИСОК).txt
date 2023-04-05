@@ -1,0 +1,150 @@
+#include <iostream>
+using namespace std;
+
+struct list {
+    int info;
+    list* next;
+};
+
+void create_list(list* p, list* r, int x)
+{
+    while (x != 0)
+    {
+        r->info = x;
+        p->next = r;
+        p = r;
+        r = new list;
+        cin >> x;
+    }
+    p->next = NULL;
+    delete r;
+}
+
+int max_el(list* p2, int max)
+{
+    int flag = 0;
+    while (p2 != NULL)
+    {
+        if (p2->info > max)
+        {
+            max = p2->info;
+        }
+        p2 = p2->next;
+    }
+    return max;
+}
+
+void delete_elements(list* p, int max) {
+    list* head = p;
+    int flag = 0;
+    while (p->next != NULL) {
+        if (p->next->info == max && flag == 0) {
+            flag = 1;
+            p = p->next;
+        }
+        else {
+            if (p->next->info == max) {
+                list* r = new list;
+                r = p->next;
+                p->next = r->next;
+                delete r;
+            }
+            else {
+                p = p->next;
+            }
+        }
+    }
+}
+
+void inserting_element(list* p1, list* r1, list* p2, list* r2, list* head2)
+{
+    while (p1->next != NULL)
+    {
+        if (p1->info == p1->next->info)
+        {
+            r1 = new list;
+            r1->info = head2->info;
+            r1->next = p1->next;
+            p1->next = r1;
+            p1 = r1;
+        }
+        p1 = p1->next;
+    }
+}
+void delete_list(list* head)
+{
+    if (head != NULL)
+    {
+        delete_list(head->next);
+        delete head;
+    }
+}
+
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    list* head_1 = new list;
+    list* head_2 = new list;
+    list* r_1 = new list, * p_1;
+    list* r_2 = new list, * p_2;
+
+
+    int x;
+    cout << "Введите первый список(признак окончания 0): ";
+    cin >> x;
+    head_1->info = x;
+    cin >> x;
+    p_1 = head_1;
+    create_list(p_1, r_1, x);
+
+
+    int X;
+    cout << "Введите второй список(признак окончания 0): ";
+    cin >> X;
+    head_2->info = X;
+    cin >> X;
+    p_2 = head_2;
+    create_list(p_2, r_2, X);
+    char choice;
+    cout << "Выберите какой пункт задачи выполнить(A or B): ";
+    cin >> choice;
+    int max = 0, flag = 0;;
+
+
+    if (choice == 'A')
+    {
+        inserting_element(p_1, r_1, p_2, r_2, head_2);
+    }
+
+
+    if (choice == 'B')
+    {
+        delete_elements(head_2, max_el(head_2, 0));
+    }
+
+    if (choice == 'A')
+    {
+        cout << "Полученный список: ";
+        p_1 = head_1;
+        while (p_1 != NULL)
+        {
+            cout << p_1->info << " ";
+            p_1 = p_1->next;
+        }
+    }
+
+    if (choice == 'B')
+    {
+        cout << "Полученный список: ";
+        p_2 = head_2;
+        while (p_2 != NULL)
+        {
+            cout << p_2->info << " ";
+            p_2 = p_2->next;
+        }
+    }
+
+
+    delete_list(head_1);
+    delete_list(head_2);
+}
